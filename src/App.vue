@@ -1,25 +1,40 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link class="nav-link" to="/">Home</router-link>
+      <router-link class="nav-link" to="/new-record">Submit New Record</router-link>
+       <v-switch
+        class="float-right nav-switch"
+        v-model="$vuetify.theme.dark"
+        hide-details
+        inset
+        label="Theme Dark"
+      ></v-switch>
     </div>
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
 <style lang="scss">
+body {
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 #nav {
-  padding: 30px;
-
+  margin-top: 1em;
+  .nav-link {
+    margin: 1em 2em;
+    text-decoration: none;
+  }
+  .nav-switch {
+    margin: 0 1em;
+  }
   a {
     font-weight: bold;
     color: #2c3e50;

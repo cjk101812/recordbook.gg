@@ -1,25 +1,24 @@
 <template>
   <div class="home">
-    <HelloWorld msg="changing input"/>
+    <SplashPage/>
   </div>
 </template>
 
 <style scoped lang="scss">
 .home {
   padding: 1em;
-  font-size: 2em;
   font-weight: bold;
 }
 </style>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import SplashPage from '@/components/Splash.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    SplashPage,
   },
 };
 </script>

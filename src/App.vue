@@ -8,7 +8,7 @@
         v-model="$vuetify.theme.dark"
         hide-details
         inset
-        label="Theme Dark"
+        label="Dark Mode"
       ></v-switch>
     </div>
     <router-view/>
@@ -43,5 +43,8 @@ body {
       color: #42b983;
     }
   }
+}
+.neue-text {
+  font-family: 'Bebas Neue';
 }
 </style>

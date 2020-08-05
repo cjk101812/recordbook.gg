@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import Store from '../store/index';
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
   theme: {
+    dark: Store.state.darkMode,
     themes: {
       light: {
         primary: '#42b883',

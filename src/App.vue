@@ -1,9 +1,13 @@
 <template>
-  <v-app id="app">
+  <v-app
+    id="app"
+    v-bind:class="{ 'theme--dark': $store.state.darkMode, 'theme--light': !$store.state.darkMode }"
+  >
     <div id="nav">
       <router-link class="nav-link" to="/">Home</router-link>
       <router-link class="nav-link" to="/new-record">Submit New Record</router-link>
-       <v-switch
+      <v-switch
+        v-on:click="toggleDarkMode"
         class="float-right nav-switch"
         v-model="$vuetify.theme.dark"
         hide-details
@@ -48,3 +52,15 @@ body {
   font-family: 'Bebas Neue';
 }
 </style>
+
+<script>
+export default {
+  name: 'Home',
+  methods: {
+    toggleDarkMode() {
+      this.$store.commit('toggleDarkMode');
+      this.$vuetify.theme.dark = this.$store.state.darkMode;
+    },
+  },
+};
+</script>

@@ -12,13 +12,18 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/new-record',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    name: 'SubmitRecord',
+    component: () => import(/* webpackChunkName: "about" */ '../views/SubmitRecord.vue'),
   },
   {
     path: '/record/:id',
     name: 'Record',
     component: () => import(/* webpackChunkName: "about" */ '../views/Record.vue'),
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Search.vue'),
   },
 ];
 

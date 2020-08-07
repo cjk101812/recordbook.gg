@@ -5,7 +5,7 @@
   >
     <div id="nav">
       <router-link class="nav-link" to="/">Home</router-link>
-      <router-link class="nav-link" to="/new-record">Submit New Record</router-link>
+      <router-link class="nav-link" to="/search">Search Records</router-link>
       <v-switch
         v-on:click="toggleDarkMode"
         class="float-right nav-switch"
@@ -29,7 +29,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
+.theme--light {
+  #nav a {
+    font-weight: bold;
+    color: #222222;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+.theme--dark {
+  #nav a {
+    font-weight: bold;
+    color: #FFFFFF;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
 #nav {
   margin-top: 1em;
   .nav-link {
@@ -41,7 +58,7 @@ body {
   }
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #222222;
 
     &.router-link-exact-active {
       color: #42b983;

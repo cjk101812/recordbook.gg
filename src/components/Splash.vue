@@ -10,7 +10,7 @@
           and many more! Sign up to start breaking records today!
         </p>
         <div class="col-md-12">
-          <v-btn color="primary" to="/new-record">
+          <v-btn color="primary" large to="/new-record">
             Submit a New Record
           </v-btn>
         </div>
@@ -34,21 +34,28 @@
       </div>
     </div>
     <div>
-      <v-card v-for="record in recordBook" v-bind:key="record._id" class="mx-auto mb-2">
-        <v-card-text>
-          <div>{{ record.gameTitle }}</div>
-          <p class="display-1 text--primary">
-            {{ record.record }}
-          </p>
-          <p>{{ record.recordDescription }}</p>
-          <div class="text--primary">Current Recordholder: {{ record.recordHolder || "N/A" }}</div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn text color="accent" v-on:click="viewRecord(record._id)">
-            Learn More
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <div class="trending pt-2 pb-2 text--primary">What's Trending</div>
+      <div class="empty-records col-md-12 text-center" v-if="recordBook.length === 0">
+        <span> Uh oh. Nothing here yet.</span><br />
+        <span class="display-4"><v-icon x-large color="secondary">far fa-frown-open</v-icon></span>
+      </div>
+      <div v-if="recordBook.length > 0">
+        <v-card v-for="record in recordBook" v-bind:key="record._id" class="mx-auto mb-2">
+          <v-card-text>
+            <div>{{ record.gameTitle }}</div>
+            <p class="display-1 text--primary">
+              {{ record.record }}
+            </p>
+            <p>{{ record.recordDescription }}</p>
+            <div class="text--primary">Current Recordholder: {{ record.recordHolder || "N/A" }}</div>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn text color="accent" v-on:click="viewRecord(record._id)">
+              Learn More
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </div>
     </div>
   </div>
 </template>
@@ -60,10 +67,11 @@ import MockData from '@/fixtures/mock_records';
 export default Vue.component('SplashComponent', {
   data() {
     return {
-      recordBook: MockData,
+      recordBook: [],
       images: [
         { url: '/assets/cod.jpg', header: 'Warzone Records' },
-        { url: '/assets/fortnite.jpg', header: 'Fortnite Records' }
+        { url: '/assets/fortnite.jpg', header: 'Fortnite Records' },
+        { url: '/assets/fall_guys.jpg', header: 'Fall Guys!' }
       ],
     };
   },
@@ -89,5 +97,8 @@ h1 {
   font-size: 5em;
   bottom: 10px;
   right: 20px;
+}
+.trending {
+  font-size: 2em;
 }
 </style>

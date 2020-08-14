@@ -5,7 +5,8 @@
   >
     <div id="nav">
       <router-link class="nav-link" to="/">Home</router-link>
-      <router-link class="nav-link" to="/search">Search Records</router-link>
+      <router-link class="nav-link" to="/search">Official Records</router-link>
+      <router-link class="nav-link" to="/validate">Validate Records</router-link>
       <v-switch
         v-on:click="toggleDarkMode"
         class="float-right nav-switch"

@@ -25,6 +25,11 @@ const routes: Array<RouteConfig> = [
     name: 'Search',
     component: () => import(/* webpackChunkName: "about" */ '../views/Search.vue'),
   },
+  {
+    path: '/validate',
+    name: 'Validate',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Validate.vue'),
+  },
 ];
 
 const router = new VueRouter({

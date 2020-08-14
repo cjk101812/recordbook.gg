@@ -105,6 +105,9 @@ export default Vue.component('SubmitRecord', {
       firstname: '',
       lastname: '',
       email: '',
+      official: false,
+      upVotes: 0,
+      downVotes: 0
     },
     emailRules: [
       (v) => !!v || 'E-mail is required',
@@ -115,7 +118,9 @@ export default Vue.component('SubmitRecord', {
     submitRecord(recordDetails: any) {
       console.log('Attempting to submit a new record. ', recordDetails);
       Axios.post('https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/add_record', recordDetails)
-        .then(() => (this.$router.push({ path: '/search' })));
+        .then((response: any) => {
+          this.$router.push({ path: '/record/' + response.data._id.$oid });
+        });
     },
   },
 });

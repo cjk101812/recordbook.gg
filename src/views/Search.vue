@@ -14,7 +14,7 @@
       </v-card-text>
       <v-card-actions>
         <v-btn text color="accent" v-on:click="viewRecord(record._id)">
-          Learn More
+          View Record
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -41,7 +41,10 @@ export default Vue.component("RecordPage", {
       ).then((records: any) => {
         this.records = records.data;
       });
-    }
+    },
+    viewRecord(recordId: string) {
+      this.$router.push({ path: `/record/${recordId}` });
+    },
   }
 });
 </script>

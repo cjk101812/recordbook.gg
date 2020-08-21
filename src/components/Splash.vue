@@ -42,16 +42,18 @@
       <div v-if="recordBook.length > 0">
         <v-card v-for="record in recordBook" v-bind:key="record._id" class="mx-auto mb-2">
           <v-card-text>
-            <div>{{ record.gameTitle }}</div>
+            <div>{{ record.game.title }}</div>
             <p class="display-1 text--primary">
-              {{ record.record }}
+              {{ record.record.title }}
             </p>
-            <p>{{ record.recordDescription }}</p>
-            <div class="text--primary">Current Recordholder: {{ record.recordHolder || "N/A" }}</div>
+            <p>{{ record.notes }}</p>
+            <div class="text--primary">
+              Submitted By: {{ record.firstname || "N/A" }} {{ record.lastname }}
+            </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="accent" v-on:click="viewRecord(record._id)">
-              Learn More
+            <v-btn text color="accent" v-on:click="viewRecord(record._id.$oid)">
+              View Record
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -62,6 +64,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Axios from "axios";
 import MockData from '@/fixtures/mock_records';
 
 export default Vue.component('SplashComponent', {
@@ -75,7 +78,17 @@ export default Vue.component('SplashComponent', {
       ],
     };
   },
+  mounted() {
+    this.getRecords();
+  },
   methods: {
+    getRecords(): void {
+      Axios.get(
+        "https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/get_official_records?limit=2"
+      ).then((records: any) => {
+        this.recordBook = records.data;
+      });
+    },
     viewRecord(recordId: string) {
       this.$router.push({ path: `/record/${recordId}` });
     },

@@ -43,8 +43,10 @@
             md="4"
           >
             <v-select
+              return-object
               v-model="formFields.game"
               :items="games"
+              item-text="title"
               label="Game Title"
             ></v-select>
           </v-col>
@@ -53,11 +55,13 @@
             cols="12"
             md="4"
           >
-            <v-text-field
+            <v-select
+              return-object
               v-model="formFields.record"
+              :items="getRecords(formFields.game)"
+              item-text="title"
               label="Record"
-              required
-            ></v-text-field>
+            ></v-select>
           </v-col>
 
           <v-col
@@ -95,11 +99,33 @@ import Axios from 'axios';
 
 export default Vue.component('SubmitRecord', {
   data: () => ({
-    games: ['Warzone', 'Fortnite'],
+    games: [
+      {
+        title: 'Warzone',
+        records: [
+          { title: "Solos: Most Kills", description: "test desc" },
+          { title: "Duos: Most Kills", description: "test desc" }
+        ]
+      },
+      {
+        title: 'Fortnite',
+        records: [
+          { title: "Solos: Most Kills", description: "fort test desc" },
+          { title: "Squad: Most Kills", description: "fort test desc" }
+        ]
+      },
+      {
+        title: 'Fall Guys',
+        records: [
+          { title: "Most Crowns", description: "fg test desc" },
+          { title: "Most Games without a Crown", description: "fg test desc" }
+        ]
+      }
+    ],
     valid: false,
     formFields: {
-      game: '',
-      record: '',
+      game: {},
+      record: {},
       link: '',
       notes: '',
       firstname: '',
@@ -116,12 +142,19 @@ export default Vue.component('SubmitRecord', {
   }),
   methods: {
     submitRecord(recordDetails: any) {
-      console.log('Attempting to submit a new record. ', recordDetails);
       Axios.post('https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/add_record', recordDetails)
         .then((response: any) => {
           this.$router.push({ path: '/record/' + response.data._id.$oid });
         });
     },
+    getRecords(activeGame: any) {
+      const game = this.games.filter(game => game.title === activeGame.title);
+      if (game.length > 0) {
+        return game[0].records;
+      } else {
+        return [];
+      }
+    }
   },
 });
 </script>

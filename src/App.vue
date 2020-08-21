@@ -15,6 +15,12 @@
         inset
         label="Dark Mode"
       ></v-switch>
+      <div class="logged-in float-right" v-if="$store.state.loggedInUserId" v-on:click="logoutUser()">
+        <div class="fake-link text--primary">Logout</div>
+      </div>
+      <div class="logged-in float-right" v-if="!$store.state.loggedInUserId">
+        <router-link class="nav-link" to="/login">Login</router-link>
+      </div>
     </div>
     <router-view/>
   </v-app>
@@ -65,6 +71,15 @@ body {
       color: #42b983;
     }
   }
+  .fake-link {
+    cursor: pointer;
+    margin: 0em 2em;
+    font-weight: bold;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 .neue-text {
   font-family: 'Bebas Neue';
@@ -79,6 +94,9 @@ export default {
       this.$store.commit('toggleDarkMode');
       this.$vuetify.theme.dark = this.$store.state.darkMode;
     },
+    logoutUser() {
+      this.$store.commit('logoutUser');
+    }
   },
 };
 </script>

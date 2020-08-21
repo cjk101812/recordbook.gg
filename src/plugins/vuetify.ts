@@ -15,14 +15,12 @@ export default new Vuetify({
       light: {
         primary: '#42b883',
         secondary: '#34495e',
-        accent: '#222222',
-        error: '#42b883',
+        accent: '#222222'
       },
       dark: {
         primary: '#42b883',
         secondary: '#34495e',
-        accent: '#F2F2F2',
-        error: '#42b883',
+        accent: '#F2F2F2'
       },
     },
   },

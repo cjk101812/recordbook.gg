@@ -1,6 +1,16 @@
 <template>
   <div class="about">
-    <div class="header neue-text primary--text">Help Validate New Records</div>
+    <div class="header row primary--text">
+      <div class="col-md-6 neue-text">Search Records</div>
+      <div class="col-md-6 align-self-md-end">
+        <v-text-field
+          v-model="searchText"
+          v-on:change="searchRecords(searchText)"
+          label="Search by game..."
+          required
+        ></v-text-field>
+      </div>
+    </div>
     <div>
       <v-alert
         type="primary"
@@ -18,11 +28,11 @@
         &nbsp;<v-icon small color="red lighten-2">fas fa-thumbs-down</v-icon>.
       </v-alert>
     </div>
-    <v-card v-for="record in records" v-bind:key="record._id.$oid" class="mx-auto mb-2">
+    <v-card v-for="record in filteredRecords" v-bind:key="record._id.$oid" class="mx-auto mb-2">
       <v-card-text>
-        <div>{{ record.game }}</div>
+        <div>{{ record.game.title }}</div>
         <p class="display-1 text--primary">
-          {{ record.record }}
+          {{ record.record.title }}
         </p>
         <p>{{ record.notes }}</p>
         <div class="text--primary">
@@ -45,7 +55,9 @@ import Axios from "axios";
 export default Vue.component("RecordPage", {
   data() {
     return {
-      records: null
+      searchText: null,
+      records: [],
+      filteredRecords: []
     };
   },
   mounted() {
@@ -57,11 +69,20 @@ export default Vue.component("RecordPage", {
         "https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/get_unofficial_records"
       ).then((records: any) => {
         this.records = records.data;
+        this.filteredRecords = this.records;
       });
     },
     viewRecord(recordId: string) {
       this.$router.push({ path: `/record/${recordId}` });
     },
+    searchRecords(searchText: string) {
+      this.filteredRecords = this.records.filter((rec: any) => rec.game.title.toLowerCase().includes(searchText.toLowerCase()));
+    }
+  },
+  watch: {
+    searchText(newText) {
+      this.searchRecords(newText);
+    }
   }
 });
 </script>

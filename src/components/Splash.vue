@@ -10,8 +10,11 @@
           and many more! Sign up to start breaking records today!
         </p>
         <div class="col-md-12">
-          <v-btn color="primary" large to="/new-record">
+          <v-btn color="primary" large to="/new-record" v-if="$store.state.loggedInUserId">
             Submit a New Record
+          </v-btn>
+          <v-btn color="primary" large to="/login" v-if="!$store.state.loggedInUserId">
+            Login to Submit a New Record
           </v-btn>
         </div>
       </div>
@@ -40,7 +43,7 @@
         <span class="display-4"><v-icon x-large color="secondary">far fa-frown-open</v-icon></span>
       </div>
       <div v-if="recordBook.length > 0">
-        <v-card v-for="record in recordBook" v-bind:key="record._id" class="mx-auto mb-2">
+        <v-card v-for="record in recordBook" v-bind:key="record._id.$oid" class="mx-auto mb-2">
           <v-card-text>
             <div>{{ record.game.title }}</div>
             <p class="display-1 text--primary">
@@ -48,7 +51,7 @@
             </p>
             <p>{{ record.notes }}</p>
             <div class="text--primary">
-              Submitted By: {{ record.firstname || "N/A" }} {{ record.lastname }}
+              Submitted By: {{ record.userDetails.firstName || "N/A" }} {{ record.userDetails.lastName }}
             </div>
           </v-card-text>
           <v-card-actions>

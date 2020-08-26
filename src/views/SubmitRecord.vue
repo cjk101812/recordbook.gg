@@ -11,37 +11,6 @@
             cols="12"
             md="4"
           >
-            <v-text-field
-              v-model="formFields.firstname"
-              label="First Name"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-text-field
-              v-model="formFields.lastname"
-              label="Last Name"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-text-field
-              v-model="formFields.email"
-              label="Email"
-              :rules="emailRules"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
             <v-select
               return-object
               v-model="formFields.game"
@@ -128,9 +97,6 @@ export default Vue.component('SubmitRecord', {
       record: {},
       link: '',
       notes: '',
-      firstname: '',
-      lastname: '',
-      email: '',
       official: false,
       upVotes: 0,
       downVotes: 0
@@ -142,7 +108,12 @@ export default Vue.component('SubmitRecord', {
   }),
   methods: {
     submitRecord(recordDetails: any) {
-      Axios.post('https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/add_record', recordDetails)
+      const newRecord = {
+        ...recordDetails,
+        official: false,
+        userId: this.$store.state.loggedInUserId
+      };
+      Axios.post('https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/add_record', newRecord)
         .then((response: any) => {
           this.$router.push({ path: '/record/' + response.data._id.$oid });
         });

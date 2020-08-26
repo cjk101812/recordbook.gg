@@ -11,7 +11,7 @@
               cols="12"
             >
               <v-text-field
-                v-model="username"
+                v-model="userDetails.username"
                 label="Username"
                 required
               ></v-text-field>
@@ -22,15 +22,48 @@
               cols="12"
             >
               <v-text-field
-                v-model="password"
+                v-model="userDetails.password"
                 label="Password"
                 required
                 type="password"
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col
+              cols="12"
+            >
+              <v-text-field
+                v-model="userDetails.firstName"
+                label="First Name"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col
+              cols="12"
+            >
+              <v-text-field
+                v-model="userDetails.lastName"
+                label="Last Name"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col
+              cols="12"
+            >
+              <v-text-field
+                v-model="userDetails.email"
+                label="Email"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
           
-          <v-btn color="primary" v-on:click="register(username, password)">
+          <v-btn color="primary" v-on:click="register(userDetails)">
             Sign Up
           </v-btn><br />
           <v-btn class="mt-4" text color="primary" to="/login">
@@ -59,15 +92,20 @@ export default Vue.component("RecordPage", {
   data() {
     return {
       valid: false,
-      username: null,
-      password: null,
+      userDetails: {
+        username: null,
+        password: null,
+        firstName: null,
+        lastName: null,
+        email: null
+      },
       error: ""
     };
   },
   methods: {
-    register(username, password): void {
-      console.log('Testing Register: ', username, password);
-      Axios.post('https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/register_user', { username, password })
+    register(userDetails): void {
+      console.log('Testing Register: ', userDetails);
+      Axios.post('https://webhooks.mongodb-realm.com/api/client/v2.0/app/rb-api-hvrjj/service/rb-api/incoming_webhook/register_user', userDetails)
         .then((user: any) => {
           if (!user.data) {
             this.error = "User not found.";

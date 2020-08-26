@@ -6,7 +6,7 @@
       <div class="mt-5">Record Description</div>
       <h3 class="text--primary">{{ activeRecord.record.description || "N/A" }}</h3>
       <div class="mt-5">Submitted By</div>
-      <h3 class="text--primary">{{ activeRecord.firstname }} {{ activeRecord.lastname }}</h3>
+      <h3 class="text--primary">{{ activeRecord.userDetails.firstName }} {{ activeRecord.userDetails.lastName }}</h3>
       <div class="mt-5">Notes</div>
       <h3 class="text--primary">{{ activeRecord.notes }}</h3>
       <div class="mt-5">Game Description</div>

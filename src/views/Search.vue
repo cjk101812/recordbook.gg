@@ -19,7 +19,7 @@
         </p>
         <p>{{ record.notes }}</p>
         <div class="text--primary">
-          Submitted By: {{ record.firstname || "N/A" }} {{ record.lastname }}
+          Submitted By: {{ record.userDetails.firstName || "N/A" }} {{ record.userDetails.lastName }}
         </div>
       </v-card-text>
       <v-card-actions>
